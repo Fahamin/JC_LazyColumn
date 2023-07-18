@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 import coil.transform.CircleCropTransformation
+import com.forex.forexsignal.jetpackcomposeretrofithilt.compoent.MovieItemView
 import com.forex.forexsignal.jetpackcomposeretrofithilt.model.Movie
 import com.forex.forexsignal.jetpackcomposeretrofithilt.view_model.MainViewModel
 import com.forex.forexsignal.jetpackcomposeretrofithilt.ui.theme.JetpackComposeRetrofitHiltTheme
@@ -64,7 +65,7 @@ fun MovieList(movieList: List<Movie>) {
     LazyColumn {
 
         itemsIndexed(items = movieList) { index, item ->
-            MovieItem(movie = item, index, selectedIndex) { i ->
+            MovieItemView(movie = item, index, selectedIndex) { i ->
                 selectedIndex = i
             }
         }
@@ -81,77 +82,7 @@ fun MovieItem() {
         "Coco is a 2017 American 3D computer-animated musical fantasy adventure film produced by Pixar",
         "Latest"
     )
-    MovieItem(movie = movie, 0, 0) { i ->
+    MovieItemView(movie = movie, 0, 0) { i ->
     }
 }
 
-
-@Composable
-fun MovieItem(movie: Movie, index: Int, selectedIndex: Int, onClick: (Int) -> Unit) {
-
-    val backgroundColor =
-        if (index == selectedIndex) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
-    Card(
-        modifier = Modifier
-            .padding(8.dp, 4.dp)
-            .fillMaxWidth()
-            .clickable { onClick(index) }
-            .height(110.dp), shape = RoundedCornerShape(8.dp)
-    ) {
-        Surface(color = backgroundColor) {
-
-            Row(
-                Modifier
-                    .padding(4.dp)
-                    .fillMaxSize()
-            ) {
-                Image(
-                    painter = rememberImagePainter(
-                        data = movie.imageUrl,
-                        builder = {
-                            scale(Scale.FILL)
-                            placeholder(R.drawable.ic_launcher_background)
-                            transformations(CircleCropTransformation())
-                        }
-                    ),
-                    contentDescription = movie.desc,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(0.2f)
-                )
-
-
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .fillMaxHeight()
-                        .weight(0.8f)
-                ) {
-                    Text(
-                        text = movie.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = movie.category,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier
-                            /*.background(
-                                androidx.compose.ui.graphics.Color.LightGray
-                            )*/
-                            .padding(4.dp)
-                    )
-                    Text(
-                        text = movie.desc,
-                        style = MaterialTheme.typography.bodySmall,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                }
-            }
-        }
-    }
-
-}
