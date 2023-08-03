@@ -1,4 +1,4 @@
-package com.forex.forexsignal.jetpackcomposeretrofithilt.compoent
+package com.forex.forexsignal.jetpackcomposeretrofithilt.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,7 +31,8 @@ import com.forex.forexsignal.jetpackcomposeretrofithilt.model.Movie
 fun MovieItemView(movie: Movie, index: Int, selectedIndex: Int, onClick: (Int) -> Unit) {
 
     val backgroundColor =
-        if (index == selectedIndex) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
+        if (index == selectedIndex) MaterialTheme.colorScheme.primary
+        else MaterialTheme.colorScheme.background
     Card(
         modifier = Modifier
             .padding(8.dp, 4.dp)
@@ -60,8 +61,6 @@ fun MovieItemView(movie: Movie, index: Int, selectedIndex: Int, onClick: (Int) -
                         .fillMaxHeight()
                         .weight(0.2f)
                 )
-
-
                 Column(
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
